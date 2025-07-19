@@ -1,0 +1,344 @@
+{
+  "upload": {
+    "title": "Upload Images",
+    "form_error_images_only": "Only image files are allowed",
+    "form_error_batch_name": "Please enter a batch name",
+    "form_error_select_image": "Please select at least one image",
+    "form_error_upload_failed": "Failed to upload images. Please try again.",
+    "form_warning_large_batch": "You're uploading {count} images. Large batches may take longer to process. Continue?",
+    "success": "Batch uploaded successfully!",
+    "batch_name_label": "Batch Name*",
+    "batch_name_placeholder": "Enter batch name",
+    "crop_type_label": "Crop Type",
+    "upload_label": "Upload Images*",
+    "upload_hint": "Click to select files or drag and drop",
+    "upload_formats": "Supported formats: JPG, PNG, TIFF",
+    "selected_files": "{count} files selected",
+    "selected_images": "Selected Images ({count})",
+    "more_images": "+{count} more\nimages",
+    "submit_uploading": "Uploading...",
+    "submit": "Upload Batch",
+    "back_to_dashboard": "Back to Dashboard",
+    "warning": "Warning: Some images may not be geotagged, please select location manually."
+  },
+  "Home": {
+    "title": "Bridging the Gap Between Aerial Intelligence and Farmer Action",
+    "description": "Turn Drone Imagery into Local-Language Crop Insights for Every Farmer. From aerial data to actionable words—delivered in their language.",
+    "actionButton": "Upload Images"
+  },
+  "Flow": {
+    "steps": [
+      {
+        "side": "start",
+        "title": "Upload Drone Image",
+        "text": "The farmer captures aerial images using a drone and uploads them through the Drone Crop app. The system supports JPEG/PNG formats with location tagging."
+      },
+      {
+        "side": "end",
+        "title": "Image Preprocessing",
+        "text": "Uploaded images are resized, denoised, and normalized to ensure they are clean and consistent for analysis. Quality checks are also performed."
+      },
+      {
+        "side": "start",
+        "title": "ML Model Analysis",
+        "text": "A trained deep learning model analyzes the image to detect signs of diseases (e.g., rust, mosaic) and assess crop vitality based on visual patterns."
+      },
+      {
+        "side": "end",
+        "title": "LLM Interpretation",
+        "text": "A language model interprets ML results to generate detailed crop health reports and personalized suggestions for intervention or treatment."
+      },
+      {
+        "side": "start",
+        "title": "Multilingual Conversion",
+        "text": "Reports are translated into the farmer’s preferred language (e.g., Hindi, Tamil, Telugu) for better accessibility and local relevance."
+      },
+      {
+        "side": "end",
+        "title": "Audio Output (TTS)",
+        "text": "Textual insights are converted into audio using text-to-speech. This benefits low-literacy users and supports inclusive advisory delivery."
+      },
+      {
+        "side": "start",
+        "title": "Notification Delivery",
+        "text": "Final results are delivered to the farmer via email, SMS, or push notification. They receive a link to view or listen to the complete report."
+      }
+    ]
+  },
+  "common": {
+    "brand": "DroneCrop",
+    "home": "Home",
+    "services": "Services",
+    "about": "About",
+    "contact": "Contact",
+    "login": "Log in",
+    "signup": "Sign up",
+    "signout": "Sign out",
+    "profile": "Your Profile",
+    "dashboard": "Dashboard",
+    "upload": "Upload",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "rights": "All rights reserved.",
+    "selectLanguage": "Select Language",
+    "language": "Language",
+    "error": "Error",
+    "success": "Success",
+    "ok": "OK",
+    "cancel": "Cancel"
+  },
+  "messages": {
+    "welcome": "Welcome to Drone Crop Mobile",
+    "loginSuccess": "Login successful",
+    "loginError": "Login failed. Please try again.",
+    "networkError": "Network connection error. Please check your internet connection.",
+    "sessionExpired": "Your session has expired. Please login again."
+  },
+  "navigation": {
+    "home": "Home",
+    "upload": "Upload",
+    "dashboard": "Dashboard", 
+    "profile": "Profile",
+    "settings": "Settings",
+    "about": "About"
+  },
+  "login": {
+    "welcomeBack": "Welcome Back",
+    "signInMessage": "Sign in to your DroneCrop account",
+    "userIdLabel": "User ID",
+    "userIdPlaceholder": "Enter your User ID",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "signingIn": "Signing in...",
+    "errorUserId": "Please enter your User ID",
+    "errorPassword": "Please enter your password",
+    "errorPasswordLength": "Password must be at least 6 characters long",
+    "errorInvalidCredentials": "Invalid User ID or password. Please check your credentials and try again.",
+    "userIdInfoTitle": "Where to find your User ID?",
+    "userIdInfoMessage": "Your User ID can be found in the DroneCrop website under your Profile section.",
+    "websiteTitle": "DroneCrop Website",
+    "websiteMessage": "You will be redirected to the DroneCrop website to access your profile section.",
+    "openWebsite": "Open Website",
+    "visitWebsite": "Visit DroneCrop Website",
+    "demoCredentials": "Demo Credentials",
+    "demoUserId": "User ID",
+    "demoPassword": "Password"
+  },
+  "about": {
+    "title": "About Drone Crop",
+    "mission_title": "Our Mission",
+    "mission_description": "Drone Crop aims to make advanced agricultural insights accessible to every farmer, regardless of their background or digital literacy. By transforming complex drone and satellite data into clear, actionable advice in local languages, we empower farmers to make informed decisions for healthier crops and better yields.",
+    "why_title": "Why We Exist",
+    "why_description": "Many farmers face challenges understanding technical crop health data. Our platform bridges this gap by providing personalized, easy-to-understand crop health reports, supporting timely actions like nutrient management and pest control. We believe that technology should serve everyone, and our solutions are designed to be inclusive and practical for real-world farming needs.",
+    "offer_title": "What We Offer",
+    "offer_1": "AI-powered summaries of drone and satellite imagery, highlighting key crop health issues.",
+    "offer_2": "Support for multiple Indian languages, ensuring accessibility for farmers across regions.",
+    "offer_3": "Seamless integration with agri-drone platforms and mobile advisory services.",
+    "offer_4": "Curated datasets from Indian farms to improve and validate our crop analysis models.",
+    "back_to_home": "Back to Home"
+  },
+  "services": {
+    "title": "Our Services",
+    "ai_title": "AI-Powered Crop Health Summaries",
+    "ai_description": "Our generative AI model transforms drone and satellite imagery into natural-language crop health reports, highlighting issues like disease spread, nutrient deficiency, water stress, and weed coverage.",
+    "language_title": "Local Language Support",
+    "language_description": "We generate crop health insights in Hindi, Kannada, Tamil, Bengali, and other Indian languages, making our services accessible to farmers across diverse regions.",
+    "integration_title": "Seamless Platform Integration",
+    "integration_description": "Our integration modules connect with agri-drone platforms and mobile advisory systems, including Kisan Call Centers and agri-tech apps, for smooth delivery of actionable advice.",
+    "data_title": "Curated Agricultural Datasets",
+    "data_description": "We maintain a labeled dataset of annotated drone images from Indian farms, supporting the training and validation of region-specific crop health analysis models.",
+    "back_to_home": "Back to Home"
+  },
+  "Carousel": {
+    "title": "Our Services",
+    "items": [
+      {
+        "title": "AI-Based Crop Health Analysis",
+        "features": [
+          "Disease detection (e.g., rust, mosaic, leaf blight)",
+          "Stress detection (water deficiency, nutrient shortage)",
+          "Pest infestation spotting (e.g., semilooper, caterpillars)"
+        ]
+      },
+      {
+        "title": "Multilingual Report Generation",
+        "features": [
+          "Translates insights into multiple Indian languages (Hindi, Tamil, Telugu, Kannada, Malayalam, etc.)",
+          "Uses farmer’s profile/location to auto-select language",
+          "Keeps technical simplicity for rural users"
+        ]
+      },
+      {
+        "title": "LLM-Driven Crop Insight Generation",
+        "features": [
+          "Converts ML outputs to human-readable crop health reports",
+          "Suggests remedies, fertilizers, and preventive measures",
+          "Customizes insights based on crop stage and region"
+        ]
+      },
+      {
+        "title": "Text-to-Speech (TTS) Audio Narration",
+        "features": [
+          "Converts translated insights to natural speech",
+          "Provides downloadable audio or in-app playback",
+          "Helps visually impaired or low-literacy farmers"
+        ]
+      }
+    ]
+  },
+  "dashboard": {
+    "welcome": "Welcome to your dashboard!",
+    "navigation": "Use the navigation menu to access different sections of your dashboard.",
+    "questions": "If you have any questions, feel free to",
+    "contact": "Contact",
+    "geotagged_notice_title": "Important Notice",
+    "geotagged_notice_desc": "Images you upload need to be geotagged. This will help us appropriately give recommendations based on location.",
+    "info": "Click here for more information.",
+    "upload_title": "Upload Images",
+    "upload_desc": "Upload new drone images for analysis",
+    "batches_title": "View Batches",
+    "batches_desc": "See all your uploaded batches and analysis results"
+  },
+  "uploadPage": {
+    "locationSettings": "Location Settings",
+    "hideMap": "Hide Map",
+    "setUpdateLocation": "Set/Update Location",
+    "locationForUpload": "Location for This Upload Session",
+    "nonGpsImagesNote": "Non-GPS images in this upload will use this location",
+    "setUpdateDefaultLocation": "Set/Update Default Location"
+  },
+  "mapSelect": {
+    "selectedLocation": "Selected Location:",
+    "latitude": "Latitude:",
+    "longitude": "Longitude:",
+    "address": "Address:",
+    "clickToSelect": "Click on the map to select a location",
+    "alerts": {
+      "existingHomeFound": {
+        "title": "Existing home location found!",
+        "addressLabel": "Address:",
+        "updateInfo": "You can update it by selecting a new location on the map."
+      },
+      "noHomeLocation": {
+        "title": "No home location set",
+        "description": "Click on the map to select your workplace/home location. This will be used as default for images without GPS data."
+      },
+      "errorLoading": "Error loading existing home location"
+    }
+  },
+  "setAsHome": {
+    "setWorkplaceAs": "Set Work Place as:",
+    "setAsHome": "Set as Home",
+    "setting": "Setting...",
+    "locationReady": "Location ready to be set as home",
+    "tooltips": {
+      "selectLocation": "Please select a location on the map first",
+      "setAsHome": "Set this location as your home workplace"
+    },
+    "alerts": {
+      "selectLocationFirst": "Please select a location on the map first.",
+      "invalidCoordinates": "Invalid coordinate data. Please select a location on the map.",
+      "homeLocationUpdated": "Home Location Updated! 🏠",
+      "homeLocationSet": "Home Location Set Successfully! 🏠",
+      "workplaceSaved": "Your workplace has been saved as:",
+      "coordinates": "Coordinates: {lat}°, {lng}°",
+      "defaultLocationNote": "This location will be used as default for images without GPS data.",
+      "setHomeFailed": "Failed to Set Home Location",
+      "tryAgain": "Please try again.",
+      "checkConnection": "Make sure you have a stable internet connection and try again."
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "description": "Have questions or want to collaborate? Reach out to the Drone Crop team using the form below.",
+    "name_placeholder": "Your Name",
+    "email_placeholder": "Your Email",
+    "message_placeholder": "Your Message",
+    "send_button": "Send Message",
+    "or_email": "Or email us at",
+    "back_to_home": "Back to Home"
+  },
+  "info_iphone": {
+    "title": "How do I enable Geotagging on my iPhone",
+    "steps": [
+      {
+        "text": "1. Open Settings - Go to your iPhone's home screen and tap on Settings."
+      },
+      {
+        "text": "2. Scroll down and tap on Privacy & Security (On iOS 16 and above, it's called Privacy & Security.)"
+      },
+      {
+        "text": "3. Tap on Location Services"
+      },
+      {
+        "text": "4. Make sure Location Services is ON - If it's off, toggle it on."
+      },
+      {
+        "text": "5. Scroll down to find Camera (Or search for \"Camera\" in the Settings search bar.)"
+      },
+      {
+        "text": "6. Tap on Camera"
+      },
+      {
+        "text": "7. Set Allow Location Access to \"While Using the App\" or \"Ask Next Time\" - This allows the Camera app to embed location data into photos."
+      },
+      {
+        "text": "Here is a video tutorial for the same: "
+      }
+    ],
+    "video": "Watch video"
+  },
+  "info_android": {
+    "title": "How do i enable Geotagging on my Android phone",
+    "steps": [
+      {
+        "text": "1. Open the Camera app"
+      },
+      {
+        "text": "2. Go to Camera Settings - Usually, there's a gear ⚙️ icon somewhere in the Camera app — top corner or menu."
+      },
+      {
+        "text": "3. Look for Location Tags / Save Location / Geo-tagging - The option may be called: Location Tags (Samsung), Save Location (Pixel), or Geo-tagging (others)"
+      },
+      {
+        "text": "4. Turn it ON"
+      },
+      {
+        "text": "Here is a video tutorial for the same: "
+      }
+    ],
+    "video": "Watch video"
+  },
+  "homeLocationInfo": {
+    "title": "Default Location for Non-GPS Images",
+    "loading": "Loading location information...",
+    "hasLocation": {
+      "description": "Images without GPS data will use your default workplace location:",
+      "currentLocationLabel": "Current Default Location",
+      "useForUploadButton": "Use for This Upload",
+      "coordinatesLabel": "Coordinates: {lat}, {lng}",
+      "learnMoreButton": "Learn more about default locations"
+    },
+    "noLocation": {
+      "title": "No default location set!",
+      "description": "Images without GPS data won't have location information. Set a default workplace location below to ensure proper analysis.",
+      "tipTitle": "Tip:",
+      "tipDescription": "Set your primary workplace or field location as default. This will be used for images that don't contain GPS data."
+    },
+    "alerts": {
+      "defaultApplied": {
+        "title": "Default location applied!",
+        "description": "Your existing home location will be used for images without GPS data in this upload."
+      },
+      "howItWorks": {
+        "title": "How Default Location Works",
+        "points": [
+          "Images with GPS data will use their original location",
+          "Images without GPS data will be tagged with your default location",
+          "You can update your default location anytime using the map below",
+          "This ensures all images have location data for analysis"
+        ]
+      }
+    }
+  }
+}

@@ -26,23 +26,23 @@ const Index = () => {
         showsVerticalScrollIndicator={false}
       >
         {/* Hero Section */}
-        <View className="bg-gradient-to-br from-green-600 to-green-800 dark:from-green-700 dark:to-green-900 px-6 py-12">
+        <View className="bg-gradient-to-br from-green-600 to-green-800 dark:from-green-700 dark:to-green-900 px-6 py-6">
           <View className="items-center mb-8">
             {/* Logo/Brand */}
             <View className="flex-row items-center mb-6">
               <View className="w-10 h-10 bg-white rounded-full items-center justify-center mr-3">
                 <Text className="text-green-600 text-xl font-bold">🚁</Text>
               </View>
-              <Text className="text-white text-2xl font-bold">{t("common.brand")}</Text>
+              <Text className="text-black  text-2xl font-bold">{t("common.brand")}</Text>
             </View>
 
             {/* Hero Title */}
-            <Text className="text-3xl font-bold text-white mb-4 text-center leading-tight">
+            <Text className="text-3xl font-bold  text-black dark:text-white mb-4 text-center leading-tight">
               {t("Home.title")}
             </Text>
 
             {/* Hero Description */}
-            <Text className="text-lg text-green-100 text-center mb-8 leading-relaxed">
+            <Text className="text-lg text-green-600 text-center mb-4 leading-relaxed">
               {t("Home.description")}
             </Text>
 
@@ -62,7 +62,7 @@ const Index = () => {
         </View>
 
         {/* Language Selector Section */}
-        <View className="px-6 py-6 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+        <View className="px-6  bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
           <Text className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 text-center">
             {t("common.selectLanguage")}
           </Text>

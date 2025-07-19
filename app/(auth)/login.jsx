@@ -1,4 +1,4 @@
-import { Link, router } from "expo-router";
+import { router } from "expo-router";
 import { useState } from "react";
 import {
   ActivityIndicator,
@@ -15,17 +15,18 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useLanguage } from "../../src/contexts/LanguageContext";
+import { useAuth } from "../../src/hooks/useAuth";
 
 const { height: screenHeight } = Dimensions.get("window");
 
 const Login = () => {
   const { t, currentLanguage } = useLanguage();
+  const { login: authLogin, isLoading: authLoading } = useAuth();
   const [credentials, setCredentials] = useState({
     userId: "",
-    password: "",
+    email: "",
   });
   const [isLoading, setIsLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
 
   const validateCredentials = () => {
     if (!credentials.userId.trim()) {
@@ -35,15 +36,17 @@ const Login = () => {
       return false;
     }
 
-    if (!credentials.password.trim()) {
-      Alert.alert(t("common.error"), t("login.errorPassword"), [
+    if (!credentials.email.trim()) {
+      Alert.alert(t("common.error"), t("login.errorEmail"), [
         { text: t("common.ok") },
       ]);
       return false;
     }
 
-    if (credentials.password.length < 6) {
-      Alert.alert(t("common.error"), t("login.errorPasswordLength"), [
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(credentials.email)) {
+      Alert.alert(t("common.error"), t("login.errorEmailInvalid"), [
         { text: t("common.ok") },
       ]);
       return false;
@@ -58,14 +61,16 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      // Debug log to see what we're sending
+      console.log("Login credentials:", {
+        email: credentials.email,
+        userId: credentials.userId,
+      });
 
-      // Mock validation - replace with actual API call
-      if (
-        credentials.userId === "demo123" &&
-        credentials.password === "password123"
-      ) {
+      // Call the API through auth hook
+      const result = await authLogin(credentials.email, credentials.userId);
+
+      if (result.success) {
         Alert.alert(t("common.success"), t("messages.loginSuccess"), [
           {
             text: t("common.ok"),
@@ -73,14 +78,19 @@ const Login = () => {
           },
         ]);
       } else {
-        Alert.alert(t("common.error"), t("login.errorInvalidCredentials"), [
-          { text: t("common.ok") },
-        ]);
+        Alert.alert(
+          t("common.error"),
+          result.error || t("messages.loginError"),
+          [{ text: t("common.ok") }]
+        );
       }
     } catch (error) {
-      Alert.alert(t("common.error"), t("messages.networkError"), [
-        { text: t("common.ok") },
-      ]);
+      console.error("Login error:", error);
+      Alert.alert(
+        t("common.error"),
+        error.message || t("messages.networkError"),
+        [{ text: t("common.ok") }]
+      );
     } finally {
       setIsLoading(false);
     }
@@ -131,7 +141,11 @@ const Login = () => {
                   {t("login.userIdLabel")} *
                 </Text>
                 <TextInput
-                  className="w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white"
+                  className={`w-full px-4 py-3 border-2 rounded-xl text-gray-900 dark:text-white ${
+                    isLoading || authLoading
+                      ? "border-gray-300 dark:border-gray-500 bg-gray-100 dark:bg-gray-600 opacity-75"
+                      : "border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 opacity-100"
+                  }`}
                   placeholder={t("login.userIdPlaceholder")}
                   placeholderTextColor="#9CA3AF"
                   value={credentials.userId}
@@ -140,56 +154,54 @@ const Login = () => {
                   }
                   autoCapitalize="none"
                   autoCorrect={false}
-                  editable={!isLoading}
+                  editable={!isLoading && !authLoading}
                 />
               </View>
 
-              {/* Password Field */}
+              {/* Email Field */}
               <View className="mb-6">
                 <Text className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                  {t("login.passwordLabel")} *
+                  {t("login.emailLabel")} *
                 </Text>
-                <View className="relative">
-                  <TextInput
-                    className="w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white pr-12"
-                    placeholder={t("login.passwordPlaceholder")}
-                    placeholderTextColor="#9CA3AF"
-                    value={credentials.password}
-                    onChangeText={(text) =>
-                      setCredentials({ ...credentials, password: text })
-                    }
-                    secureTextEntry={!showPassword}
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    editable={!isLoading}
-                  />
-                  <TouchableOpacity
-                    className="absolute right-3 top-3"
-                    onPress={() => setShowPassword(!showPassword)}
-                    disabled={isLoading}
-                  >
-                    <Text className="text-green-600 dark:text-green-400 text-lg">
-                      {showPassword ? "🙈" : "👁️"}
-                    </Text>
-                  </TouchableOpacity>
-                </View>
+                <TextInput
+                  className={`w-full px-4 py-3 border-2 rounded-xl text-gray-900 dark:text-white ${
+                    isLoading || authLoading
+                      ? "border-gray-300 dark:border-gray-500 bg-gray-100 dark:bg-gray-600 opacity-75"
+                      : "border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 opacity-100"
+                  }`}
+                  placeholder={t("login.emailPlaceholder")}
+                  placeholderTextColor="#9CA3AF"
+                  value={credentials.email}
+                  onChangeText={(text) =>
+                    setCredentials({ ...credentials, email: text })
+                  }
+                  keyboardType="email-address"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  autoComplete="email"
+                  editable={!isLoading && !authLoading}
+                />
               </View>
 
               {/* Login Button */}
               <TouchableOpacity
-                className={`w-full py-4 rounded-xl items-center justify-center ${
-                  isLoading
-                    ? "bg-gray-400 dark:bg-gray-600"
-                    : "bg-green-600 dark:bg-green-500"
+                className={`w-full py-4 rounded-xl items-center justify-center transition-colors ${
+                  isLoading || authLoading
+                    ? "bg-gray-400 dark:bg-gray-600 opacity-90"
+                    : "bg-green-600 dark:bg-green-500 opacity-100"
                 }`}
                 onPress={handleLogin}
-                disabled={isLoading}
+                disabled={isLoading || authLoading}
                 activeOpacity={0.8}
               >
-                {isLoading ? (
-                  <View className="flex-row items-center">
-                    <ActivityIndicator color="white" size="small" />
-                    <Text className="text-white font-semibold ml-2">
+                {isLoading || authLoading ? (
+                  <View className="flex-row items-center justify-center">
+                    <ActivityIndicator
+                      color="#ffffff"
+                      size="small"
+                      style={{ marginRight: 8 }}
+                    />
+                    <Text className="text-white font-semibold text-base">
                       {t("login.signingIn")}
                     </Text>
                   </View>
@@ -201,7 +213,7 @@ const Login = () => {
               </TouchableOpacity>
             </View>
 
-            {/* User ID Information */}
+            {/* Email Information */}
             <View className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-2xl p-4 mb-6">
               <View className="flex-row items-start">
                 <Text className="text-blue-600 dark:text-blue-400 text-xl mr-3">
@@ -209,10 +221,10 @@ const Login = () => {
                 </Text>
                 <View className="flex-1">
                   <Text className="text-sm font-semibold text-blue-800 dark:text-blue-300 mb-2">
-                    {t("login.userIdInfoTitle")}
+                    {t("login.emailInfoTitle")}
                   </Text>
                   <Text className="text-sm text-blue-700 dark:text-blue-400 mb-3">
-                    {t("login.userIdInfoMessage")}
+                    {t("login.emailInfoMessage")}
                   </Text>
                   <TouchableOpacity
                     className="bg-blue-600 dark:bg-blue-500 px-4 py-2 rounded-lg self-start"
@@ -239,14 +251,14 @@ const Login = () => {
                   </Text>
                   <Text className="text-sm text-yellow-700 dark:text-yellow-400">
                     {t("login.demoUserId")}: demo123{"\n"}
-                    {t("login.demoPassword")}: password123
+                    {t("login.demoEmail")}: demo@dronecrop.com
                   </Text>
                 </View>
               </View>
             </View>
 
             {/* Navigation */}
-            <View className="items-center">
+            {/* <View className="items-center">
               <Link href="/" asChild>
                 <TouchableOpacity className="flex-row items-center py-3 px-6 bg-gray-100 dark:bg-gray-700 rounded-xl">
                   <Text className="text-gray-700 dark:text-gray-300 mr-2">
@@ -257,7 +269,7 @@ const Login = () => {
                   </Text>
                 </TouchableOpacity>
               </Link>
-            </View>
+            </View> */}
           </View>
         </ScrollView>
       </KeyboardAvoidingView>

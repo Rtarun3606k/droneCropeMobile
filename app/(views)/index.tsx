@@ -33,7 +33,7 @@ const Index = () => {
               <View className="w-10 h-10 bg-white rounded-full items-center justify-center mr-3">
                 <Text className="text-green-600 text-xl font-bold">🚁</Text>
               </View>
-              <Text className="text-black  text-2xl font-bold">{t("common.brand")}</Text>
+              <Text className="text-black  dark:text-white text-2xl font-bold">{t("common.brand")}</Text>
             </View>
 
             {/* Hero Title */}

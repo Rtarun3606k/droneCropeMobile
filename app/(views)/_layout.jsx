@@ -1,14 +1,76 @@
 import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
-import { Tabs } from "expo-router";
+import { Tabs, useRouter } from "expo-router";
+import { useEffect, useMemo } from "react";
 import { useColorScheme } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useLanguage } from "../../src/contexts/LanguageContext";
+import useAuth from "../../src/hooks/useAuth";
 
 const TabsLayout = () => {
+  // Call ALL hooks first, before any conditional logic
+  const { login, logout, isAuthenticated, userData, isLoading } = useAuth();
   const { t } = useLanguage();
   const colorScheme = useColorScheme();
   const isDark = colorScheme === "dark";
+  const router = useRouter();
+
+  // Memoize blur configuration to prevent re-renders
+  const blurConfig = useMemo(
+    () => ({
+      intensity: 120,
+      tint: isDark ? "dark" : "light",
+      // blur: "dimezisBlurView",
+    }),
+    [isDark]
+  );
+
+  // Memoize tab bar background component
+  const tabBarBackground = useMemo(
+    () => () => (
+      <BlurView
+        intensity={blurConfig.intensity}
+        tint={blurConfig.tint}
+        // experimentalBlurMethod={blurConfig.blur}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
+          borderRadius: 25, // Match the tab bar border radius
+          overflow: "hidden",
+        }}
+      />
+    ),
+    [blurConfig]
+  );
+
+  console.log("Auth State:", {
+    isAuthenticated,
+    userData,
+    isLoading,
+    login,
+    logout,
+  }); // Debug log for auth state
+
+  useEffect(() => {
+    // Only redirect if we're not loading and user is not authenticated
+    if (!isLoading && !isAuthenticated) {
+      console.log("User is not authenticated, redirecting to login...");
+      router.replace("/(auth)/login"); // Use replace instead of push
+    }
+  }, [isAuthenticated, isLoading, router]); // Add dependencies
+
+  // Show loading or nothing while checking authentication
+  if (isLoading) {
+    return null; // or a loading component
+  }
+
+  // Don't render tabs if not authenticated (redirect is happening)
+  if (!isAuthenticated) {
+    return null;
+  }
 
   return (
     <SafeAreaProvider>
@@ -17,22 +79,7 @@ const TabsLayout = () => {
           headerShown: false,
           tabBarActiveTintColor: "#16a34a", // green-600
           tabBarInactiveTintColor: isDark ? "#9ca3af" : "#6b7280", // gray-400 dark, gray-500 light
-          tabBarBackground: () => (
-            <BlurView
-              intensity={50} // Maximum blur intensity
-              tint={isDark ? "dark" : "light"} // Blur tint based on theme
-              experimentalBlurMethod="dimezisBlurView" // Enhanced blur method (if available)
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                bottom: 0,
-                right: 0,
-                borderRadius: 25, // Match the tab bar border radius
-                overflow: "hidden",
-              }}
-            />
-          ),
+          tabBarBackground: tabBarBackground,
           tabBarStyle: {
             borderTopWidth: 0, // Remove default border
             paddingBottom: 12,

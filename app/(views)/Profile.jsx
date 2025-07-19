@@ -1,3 +1,5 @@
+import { Ionicons } from "@expo/vector-icons";
+import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { Alert, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -5,8 +7,9 @@ import { useLanguage } from "../../src/contexts/LanguageContext";
 import useAuth from "../../src/hooks/useAuth";
 
 const Profile = () => {
+  const { login, logout, isAuthenticated, userData, isLoading } = useAuth();
   const { t } = useLanguage();
-  const { logout, isAuthenticated, userData } = useAuth();
+  // const { logout, isAuthenticated, userData } = useAuth();
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -47,10 +50,26 @@ const Profile = () => {
     <SafeAreaView className="flex-1 bg-gray-50 dark:bg-gray-900">
       <View className="flex-1 px-6 py-8">
         {/* Header */}
-        <View className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 mb-6">
-          <Text className="text-2xl font-bold text-gray-900 dark:text-white mb-4 text-center">
-            👤 {t("navigation.profile")}
-          </Text>
+        <View className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 mb-6 ">
+          <View className="flex items-center justify-center flex-row space-x-4 mb-4 gap-4">
+            <Image
+              source={
+                userData && userData
+                  ? userData.image
+                  : "https://lh3.googleusercontent.com/a/ACg8ocI2qSlFSG1Jqn97mu963OaXFT4B1ppSFalHTNP1Gqk4MsY_tQ=s96-c"
+              }
+              alt="image"
+              style={{
+                width: 30,
+                height: 30,
+                borderRadius: 12 / 2, // Make it circular
+              }}
+              resizeMode="cover"
+            />
+            <Text className="text-2xl font-bold text-gray-900 dark:text-white  text-center">
+              {t("navigation.profile")}
+            </Text>
+          </View>
 
           {/* User Info */}
           {userData && (
@@ -60,7 +79,7 @@ const Profile = () => {
                   {t("profile.userId") || "User ID"}
                 </Text>
                 <Text className="text-lg font-medium text-gray-900 dark:text-white">
-                  {userData.userId || "N/A"}
+                  {userData.mobileId || "N/A"}
                 </Text>
               </View>
 
@@ -101,15 +120,16 @@ const Profile = () => {
         {/* Logout Button */}
         <TouchableOpacity
           onPress={confirmLogout}
-          className="bg-red-600 hover:bg-red-700 rounded-xl py-4 px-6 shadow-lg"
+          className="bg-red-600 hover:bg-red-700 rounded-xl py-4 px-6 shadow-lg flex flex-row gap-3 items-center justify-center space-x-2"
         >
+          <Ionicons name="log-out" size={32} color="white" />
           <Text className="text-white text-center font-semibold text-lg">
-            🚪 {t("profile.logout") || "Logout"}
+            {t("profile.logout") || "Logout"}
           </Text>
         </TouchableOpacity>
 
         {/* Debug Info (only in development) */}
-        {__DEV__ && (
+        {/* {__DEV__ && (
           <View className="mt-6 bg-gray-100 dark:bg-gray-800 rounded-xl p-4">
             <Text className="text-gray-600 dark:text-gray-400 text-sm font-medium mb-2">
               Debug Info:
@@ -121,7 +141,7 @@ const Profile = () => {
               User Data: {userData ? "Available" : "None"}
             </Text>
           </View>
-        )}
+        )} */}
       </View>
     </SafeAreaView>
   );

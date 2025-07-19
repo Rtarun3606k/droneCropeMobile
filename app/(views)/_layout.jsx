@@ -1,5 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
+import { Image } from "expo-image";
 import { Tabs, useRouter } from "expo-router";
 import { useEffect, useMemo } from "react";
 import { useColorScheme } from "react-native";
@@ -164,10 +165,25 @@ const TabsLayout = () => {
           options={{
             title: t("common.profile"),
             tabBarIcon: ({ color, size, focused }) => (
-              <Ionicons
-                name={focused ? "person" : "person-outline"}
-                size={size}
-                color={color}
+              // <Ionicons
+
+              //   name={focused ? "person" : "person-outline"}
+              //   size={size}
+              //   color={color}
+              // />
+              <Image
+                source={
+                  userData && userData
+                    ? userData.image
+                    : "https://lh3.googleusercontent.com/a/ACg8ocI2qSlFSG1Jqn97mu963OaXFT4B1ppSFalHTNP1Gqk4MsY_tQ=s96-c"
+                }
+                alt="image"
+                style={{
+                  width: size,
+                  height: size,
+                  borderRadius: size / 2, // Make it circular
+                }}
+                resizeMode="cover"
               />
             ),
           }}

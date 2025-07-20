@@ -48,3 +48,5 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+  droneCropeMobile using ☁️ Visual Studio Enterprise Subscription took 18.0s …➜ export ANDROID_HOME=$HOME/Android/Sdk            
+export PATH=$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$PATH

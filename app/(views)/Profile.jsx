@@ -1,7 +1,14 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
-import { useEffect, useState } from "react";
-import { Alert, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { useCallback, useEffect, useState } from "react";
+import {
+  Alert,
+  RefreshControl,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AlertBox from "../../src/components/AlertBox";
 import Loading from "../../src/components/Loading";
@@ -23,6 +30,7 @@ const Profile = () => {
 
   const [isLoadingData, setIsLoadingData] = useState(false);
   const [getData, setGetData] = useState(null);
+  const [refresh, setRefresh] = useState(false);
   const { t } = useLanguage();
   // const { logout, isAuthenticated, userData } = useAuth();
   const getUser = async () => {
@@ -160,13 +168,29 @@ const Profile = () => {
     );
   };
 
+  const onRefresh = useCallback(async () => {
+    setRefresh(true);
+    await getUser();
+    setRefresh(false);
+  }, [getUser]);
+
   return (
     <SafeAreaView className="flex-1 bg-gray-50 dark:bg-gray-900">
       {(isLoading || isLoadingData) && (
         <Loading visible={true} message="Loading user data..." />
       )}
       {/* <Loading visible={true} message="Uploading images..." /> */}
-      <ScrollView className="flex-1 mb-20">
+      <ScrollView
+        className="flex-1 mb-20"
+        refreshControl={
+          <RefreshControl
+            refreshing={refresh}
+            onRefresh={onRefresh}
+            colors={["#10b981"]} // for Android
+            tintColor={"#10b981"} // for iOS
+          />
+        }
+      >
         <View className="flex-1 px-6 py-8">
           {/* Header */}
           <View className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 mb-6 ">

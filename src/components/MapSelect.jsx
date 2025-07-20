@@ -53,7 +53,7 @@ const MapSelect = ({
     const loadExistingHome = async () => {
       try {
         const response = await fetch(
-          `${process.env.EXPO_PUBLIC_API_URL}/api/user/get-home-location`,
+          `${process.env.EXPO_PUBLIC_API_URL}/api/user/set-home-location`,
           {
             headers: {
               Authorization: `Bearer ${accessToken}`,

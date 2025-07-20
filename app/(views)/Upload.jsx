@@ -1,9 +1,10 @@
 import { Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import {
   Dimensions,
   Image,
+  RefreshControl,
   ScrollView,
   Text,
   TextInput,
@@ -11,11 +12,10 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-// You will need to add a zipping library to your project
-// Run: npm install react-native-zip-archive
-// Then create a development build: npx expo run:android or npx expo run:ios
+// ** FIX: Switched to jszip to avoid native linking issues **
+// You will need to install this library: npm install jszip
 import * as FileSystem from "expo-file-system";
-import { zip } from "react-native-zip-archive";
+import JSZip from "jszip";
 
 import AlertBox from "../../src/components/AlertBox";
 import HomeLocationInfo from "../../src/components/HomeLocationInfo";
@@ -24,6 +24,7 @@ import MapSelect from "../../src/components/MapSelect";
 import { useLanguage } from "../../src/contexts/LanguageContext";
 import useAlert from "../../src/hooks/useAlert";
 import { useAuth } from "../../src/hooks/useAuth";
+import useTranslation from "../../src/hooks/useTranslation";
 import GeotagChecker from "../../src/utils/GeotagChecker";
 
 const { width: screenWidth } = Dimensions.get("window");
@@ -58,8 +59,10 @@ const Upload = () => {
   const [showLocationSection, setShowLocationSection] = useState(false);
   const [homeLocationRefresh, setHomeLocationRefresh] = useState(0);
   const [showCropPicker, setShowCropPicker] = useState(false);
+  const [refreshing, setRefreshing] = useState(false); // State for pull-to-refresh
 
   const { t } = useLanguage();
+  const { currentLanguage } = useTranslation();
   const { isAuthenticated, userData, accessToken } = useAuth();
   const {
     alertConfig,
@@ -69,6 +72,31 @@ const Upload = () => {
     showSuccess,
     showWarning,
   } = useAlert();
+
+  // Function to reset the form to its initial state
+  const resetForm = useCallback(() => {
+    console.log("Form reset triggered.");
+    setBatchName("");
+    setSelectedCrop("Soybean");
+    setSelectedFiles([]);
+    setPreviewImages([]);
+    setFormError("");
+    setGeotagResults(null);
+    setIsCheckingGeotags(false);
+    setGeotagProgress(0);
+    setCheckingFileName("");
+    // We keep the location data for user convenience
+  }, []);
+
+  // Handler for the pull-to-refresh action
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    resetForm();
+    // Simulate a short delay to show the spinner, then hide it.
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 1000);
+  }, [resetForm]);
 
   // Check geotags for files
   const checkGeotagsForFiles = async (filesToCheck) => {
@@ -201,23 +229,27 @@ const Upload = () => {
     setIsUploading(true);
 
     try {
-      // ** FIX: Add a check to ensure the native module is linked **
-      // This error occurs if the app is running in Expo Go or if the native module
-      // is not correctly linked in a development build.
-      if (typeof zip !== "function") {
-        throw new Error(
-          "Zipping library not found. Please ensure 'react-native-zip-archive' is installed and you are running a development build (not Expo Go)."
-        );
+      // ** FIX: Using JSZip to create the zip file in JavaScript **
+      console.log("Creating ZIP file with jszip...");
+      const zip = new JSZip();
+
+      // Read each file and add it to the zip archive
+      for (const file of selectedFiles) {
+        const fileContent = await FileSystem.readAsStringAsync(file.uri, {
+          encoding: FileSystem.EncodingType.Base64,
+        });
+        zip.file(file.name, fileContent, { base64: true });
       }
 
-      // Step 1 - Create a ZIP file from the selected images
-      const imageUris = selectedFiles.map((file) =>
-        file.uri.replace("file://", "")
-      );
-      const targetZipPath = `${FileSystem.cacheDirectory}images.zip`;
+      // Generate the zip file content as a base64 string
+      const zipBase64 = await zip.generateAsync({ type: "base64" });
+      const zipUri = `${FileSystem.cacheDirectory}images.zip`;
 
-      const zipPath = await zip(imageUris, targetZipPath);
-      console.log(`ZIP file created at: ${zipPath}`);
+      // Write the base64 content to a temporary file
+      await FileSystem.writeAsStringAsync(zipUri, zipBase64, {
+        encoding: FileSystem.EncodingType.Base64,
+      });
+      console.log(`ZIP file created at: ${zipUri}`);
 
       // Step 2 - Create FormData and append the single ZIP file
       const formData = new FormData();
@@ -233,11 +265,11 @@ const Upload = () => {
       );
 
       formData.append("imagesZip", {
-        uri: `file://${zipPath}`,
+        uri: zipUri,
         name: "images.zip",
         type: "application/zip",
       });
-
+      formData.append("preferredLanguage", currentLanguage || "en"); // Add language preference
       // Step 3 - Send the request
       const response = await fetch(
         `${process.env.EXPO_PUBLIC_API_URL}/api/dashboard/upload-batch`,
@@ -261,13 +293,8 @@ const Upload = () => {
 
       showSuccess("Success", "Images uploaded successfully!");
 
-      // Reset form
-      setBatchName("");
-      setSelectedCrop("Soybean");
-      setSelectedFiles([]);
-      setPreviewImages([]);
-      setFormError("");
-      setGeotagResults(null);
+      // Reset form on successful upload
+      resetForm();
     } catch (error) {
       console.error("Upload failed:", error);
       showError("Upload Failed", `Failed to upload images. ${error.message}`);
@@ -278,7 +305,17 @@ const Upload = () => {
 
   return (
     <SafeAreaView className="flex-1 bg-gray-50 dark:bg-gray-900">
-      <ScrollView className="flex-1 px-4 py-6">
+      <ScrollView
+        className="flex-1 px-4 py-6"
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            colors={["#10b981"]} // for Android
+            tintColor={"#10b981"} // for iOS
+          />
+        }
+      >
         {/* Header */}
         <View className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700 mb-6">
           <Text className="text-2xl font-bold text-gray-900 dark:text-white mb-4 text-center">

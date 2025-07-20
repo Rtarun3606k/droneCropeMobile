@@ -37,8 +37,10 @@ const SetAsHome = ({
             Authorization: `Bearer ${accessToken}`,
           },
           body: JSON.stringify({
-            latitude: selectedCoordinatesProp.latitude,
-            longitude: selectedCoordinatesProp.longitude,
+            coordinates: {
+              latitude: selectedCoordinatesProp.latitude,
+              longitude: selectedCoordinatesProp.longitude,
+            },
             address:
               addressProp ||
               `${selectedCoordinatesProp.latitude.toFixed(6)}, ${selectedCoordinatesProp.longitude.toFixed(6)}`,

@@ -88,15 +88,38 @@ const Upload = () => {
     // We keep the location data for user convenience
   }, []);
 
+  // Helper: Fetch address from coordinates (replace with your geocoding API if needed)
+  const fetchAddressFromCoordinates = async (coordinates) => {
+    if (!coordinates) return "";
+    try {
+      // Example using OpenStreetMap Nominatim API (no key required, but rate-limited)
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${coordinates.latitude}&lon=${coordinates.longitude}`
+      );
+      if (!response.ok) throw new Error("Failed to fetch address");
+      const data = await response.json();
+      return data.display_name || "";
+    } catch (error) {
+      console.error("Error fetching address:", error);
+      return "";
+    }
+  };
+
   // Handler for the pull-to-refresh action
-  const onRefresh = useCallback(() => {
+  const onRefresh = useCallback(async () => {
     setRefreshing(true);
     resetForm();
-    // Simulate a short delay to show the spinner, then hide it.
+    // If coordinates exist, fetch address
+    if (selectedCoordinatesProp) {
+      const address = await fetchAddressFromCoordinates(
+        selectedCoordinatesProp
+      );
+      setAddressProp(address);
+    }
     setTimeout(() => {
       setRefreshing(false);
     }, 1000);
-  }, [resetForm]);
+  }, [resetForm, selectedCoordinatesProp]);
 
   // Check geotags for files
   const checkGeotagsForFiles = async (filesToCheck) => {
@@ -398,7 +421,9 @@ const Upload = () => {
               onPress={() => setShowLocationSection(!showLocationSection)}
             >
               <Text className="text-green-600 dark:text-green-400 underline">
-                {showLocationSection ? "Hide Map" : "Set Location"}
+                {showLocationSection
+                  ? t("uploadPage.HideMap") || "Hide Map"
+                  : t("uploadPage.ShowMap") || "Set Location"}
               </Text>
             </TouchableOpacity>
           </View>
@@ -421,7 +446,7 @@ const Upload = () => {
               <View className="flex-row items-center mb-1">
                 <Ionicons name="location" size={16} color="#3b82f6" />
                 <Text className="text-blue-800 dark:text-blue-200 font-medium ml-2">
-                  Location for Upload
+                  {t("uploadPage.lupload") || "Location for Upload"}
                 </Text>
               </View>
               <Text className="text-blue-700 dark:text-blue-300 text-sm">

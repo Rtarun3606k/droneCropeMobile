@@ -307,19 +307,21 @@ const MapSelect = ({
       </View>
 
       {/* Action Buttons */}
-      <View className="flex-row space-x-3">
+      <View className="flex-row space-x-3 gap-3 mt-3 mb-3">
         <TouchableOpacity
           onPress={getCurrentLocation}
           disabled={isLoading}
-          className="flex-1 bg-blue-600 rounded-lg py-3 px-4 flex-row items-center justify-center"
+          className="flex-1 bg-blue-600 rounded-lg py-3 px-1 flex-row items-center justify-center"
         >
           <Ionicons
             name="location"
-            size={20}
+            size={15}
             color="white"
             style={{ marginRight: 8 }}
           />
-          <Text className="text-white font-medium">Current Location</Text>
+          <Text className="text-white font-medium pr-1">
+            {t("homeLocationInfo.hasLocation.currentLocationLabel")}
+          </Text>
         </TouchableOpacity>
 
         {existingHome && (
@@ -333,7 +335,9 @@ const MapSelect = ({
               color="white"
               style={{ marginRight: 8 }}
             />
-            <Text className="text-white font-medium">Go to Home</Text>
+            <Text className="text-white font-medium">
+              {t("mapSelect.home")}
+            </Text>
           </TouchableOpacity>
         )}
       </View>
@@ -347,13 +351,17 @@ const MapSelect = ({
             </Text>
 
             <View className="space-y-2">
-              <View className="flex-row justify-between">
+              <View className="flex-col justify-between">
                 <Text className="text-gray-600 dark:text-gray-400">
-                  <Text className="font-medium">Latitude:</Text>{" "}
+                  <Text className="font-extrabold">
+                    {t("mapSelect.latitude") || "Latitude"}:
+                  </Text>{" "}
                   {selectedCoordinatesProp.latitude?.toFixed(6)}°
                 </Text>
                 <Text className="text-gray-600 dark:text-gray-400">
-                  <Text className="font-medium">Longitude:</Text>{" "}
+                  <Text className="font-extrabold">
+                    {t("mapSelect.longitude") || "Longitude"}:
+                  </Text>{" "}
                   {selectedCoordinatesProp.longitude?.toFixed(6)}°
                 </Text>
               </View>
@@ -361,7 +369,9 @@ const MapSelect = ({
               {addressProp && (
                 <View>
                   <Text className="text-gray-600 dark:text-gray-400">
-                    <Text className="font-medium">Address:</Text>
+                    <Text className="font-extrabold">
+                      {t("mapSelect.address") || "Address"}:
+                    </Text>
                   </Text>
                   <Text className="text-gray-800 dark:text-gray-200 text-sm mt-1">
                     {addressProp}
@@ -382,7 +392,7 @@ const MapSelect = ({
             </View>
           </View>
         ) : (
-          <View className="items-center py-4">
+          <View className="items-center py-4 mt-4">
             <Ionicons name="map-outline" size={48} color="#9ca3af" />
             <Text className="text-gray-500 dark:text-gray-400 text-center mt-2">
               {t("mapSelect.clickToSelect") ||
@@ -403,13 +413,22 @@ const MapSelect = ({
           />
           <View className="flex-1">
             <Text className="text-blue-800 dark:text-blue-200 text-sm">
-              <Text className="font-medium">Instructions:</Text>
+              <Text className="font-medium">
+                {t("mapSelect.Instructions") || "Instructions"}:
+              </Text>
             </Text>
             <Text className="text-blue-700 dark:text-blue-300 text-sm mt-1">
-              • Tap anywhere on the map to select coordinates{"\n"}• Use
-              "Current Location" to get your GPS position{"\n"}• Red pin shows
-              selected location, green pin shows home location{"\n"}• Use "Set
-              as Home" to save location as default
+              {"* " + t("mapSelect.mapInstructions.0") ||
+                "Tap anywhere on the map to select coordinates"}
+              {"\n"}
+              {"* " + t("mapSelect.mapInstructions.1") ||
+                "Use 'Current Location' to get your GPS position"}
+              {"\n"}
+              {"* " + t("mapSelect.mapInstructions.2") ||
+                "Red pin shows selected location, green pin shows home location"}
+              {"\n"}
+              {"* " + t("mapSelect.mapInstructions.3") ||
+                "Use 'Set as Home' to save location as default"}
             </Text>
           </View>
         </View>

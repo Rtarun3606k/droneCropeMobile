@@ -16,7 +16,7 @@ const HomeLocationInfo = ({ onAlert, refreshTrigger, onUseAsDefault }) => {
     setLoading(true);
     try {
       const response = await fetch(
-        `${process.env.EXPO_PUBLIC_API_URL}/api/user/get-home-location`,
+        `${process.env.EXPO_PUBLIC_API_URL}/api/user/set-home-location`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -50,7 +50,10 @@ const HomeLocationInfo = ({ onAlert, refreshTrigger, onUseAsDefault }) => {
     if (homeLocation && onUseAsDefault) {
       onUseAsDefault(homeLocation);
       if (onAlert) {
-        onAlert("Default location applied for this upload session.", "success");
+        onAlert(
+          t("homeLocationInfo.alerts.defaultApplied.title"),
+          t("homeLocationInfo.alerts.defaultApplied.description")
+        );
       }
     }
   };
@@ -60,7 +63,8 @@ const HomeLocationInfo = ({ onAlert, refreshTrigger, onUseAsDefault }) => {
       <View className="bg-gray-100 dark:bg-gray-700 rounded-lg p-4">
         <ActivityIndicator size="small" color="#10b981" />
         <Text className="text-gray-600 dark:text-gray-400 text-center mt-2">
-          Loading location...
+          {/* Using translation for loading text */}
+          {t("homeLocationInfo.loading")}
         </Text>
       </View>
     );
@@ -74,29 +78,34 @@ const HomeLocationInfo = ({ onAlert, refreshTrigger, onUseAsDefault }) => {
           <View className="flex-row items-center mb-2">
             <Ionicons name="location" size={16} color="#6b7280" />
             <Text className="text-gray-900 dark:text-white font-semibold ml-2">
-              {t("homeLocation.title") || "Default Location"}
+              {/* Using translation for title */}
+              {t("homeLocationInfo.title")}
             </Text>
           </View>
 
           {homeLocation ? (
             <View>
               <Text className="text-gray-700 dark:text-gray-300 text-sm mb-2">
-                {t("homeLocation.hasLocationDesc") ||
-                  "You have a default location set."}
+                {/* Using translation for description when location exists */}
+                {t("homeLocationInfo.hasLocation.description")}
               </Text>
               <View className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded p-3">
                 <View className="flex-row items-center justify-between mb-2">
                   <View className="flex-row items-center">
                     <Ionicons name="home" size={14} color="#10b981" />
                     <Text className="text-green-800 dark:text-green-200 font-medium text-sm ml-1">
-                      Current Location
+                      {/* Using translation for label */}
+                      {t("homeLocationInfo.hasLocation.currentLocationLabel")}
                     </Text>
                   </View>
                   <TouchableOpacity
                     onPress={handleUseAsDefault}
                     className="bg-green-600 rounded px-3 py-1"
                   >
-                    <Text className="text-white text-xs">Use for Upload</Text>
+                    <Text className="text-white text-xs">
+                      {/* Using translation for button text */}
+                      {t("homeLocationInfo.hasLocation.useForUploadButton")}
+                    </Text>
                   </TouchableOpacity>
                 </View>
                 <Text className="text-green-700 dark:text-green-300 text-sm">
@@ -110,15 +119,20 @@ const HomeLocationInfo = ({ onAlert, refreshTrigger, onUseAsDefault }) => {
           ) : (
             <View>
               <Text className="text-yellow-700 dark:text-yellow-300 text-sm font-medium mb-2">
-                No Default Location Set
+                {/* Using translation for title when no location exists */}
+                {t("homeLocationInfo.noLocation.title")}
               </Text>
               <Text className="text-gray-700 dark:text-gray-300 text-sm mb-3">
-                Set a default location to use for images without GPS data.
+                {/* Using translation for description */}
+                {t("homeLocationInfo.noLocation.description")}
               </Text>
               <View className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded p-3">
                 <Text className="text-yellow-800 dark:text-yellow-200 text-xs">
-                  💡 <Text className="font-medium">Tip:</Text> Use the map below
-                  to set your farm location.
+                  💡{" "}
+                  <Text className="font-medium">
+                    {t("homeLocationInfo.noLocation.tipTitle")}
+                  </Text>{" "}
+                  {t("homeLocationInfo.noLocation.tipDescription")}
                 </Text>
               </View>
             </View>

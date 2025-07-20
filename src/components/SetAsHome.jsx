@@ -102,7 +102,7 @@ const SetAsHome = ({
 
   return (
     <View className="space-y-3">
-      <View className="border-t border-gray-200 dark:border-gray-600 pt-3">
+      <View className="border-t border-gray-200 dark:border-gray-600 pt-3 mb-4">
         <TouchableOpacity
           onPress={confirmSetAsHome}
           disabled={isSettingHome}

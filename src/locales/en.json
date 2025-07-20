@@ -221,13 +221,19 @@
     "setUpdateLocation": "Set/Update Location",
     "locationForUpload": "Location for This Upload Session",
     "nonGpsImagesNote": "Non-GPS images in this upload will use this location",
-    "setUpdateDefaultLocation": "Set/Update Default Location"
+    "setUpdateDefaultLocation": "Set/Update Default Location",
+    "lupload": "Location for Upload",
+    "HideMap": "Hide Map",
+    "ShowMap": "Show Map"
   },
   "mapSelect": {
     "selectedLocation": "Selected Location:",
+    "home": "Go to Home",
     "latitude": "Latitude:",
     "longitude": "Longitude:",
     "address": "Address:",
+    "current": "Current Location",
+    "Instructions": "Instructions",
     "clickToSelect": "Click on the map to select a location",
     "alerts": {
       "existingHomeFound": {
@@ -240,7 +246,13 @@
         "description": "Click on the map to select your workplace/home location. This will be used as default for images without GPS data."
       },
       "errorLoading": "Error loading existing home location"
-    }
+    },
+    "mapInstructions": [
+      "Tap anywhere on the map to select coordinates",
+      "Use \"Current Location\" to get your GPS position",
+      "Red pin shows selected location, green pin shows home location",
+      "Use \"Set as Home\" to save location as default"
+    ]
   },
   "setAsHome": {
     "setWorkplaceAs": "Set Work Place as:",
@@ -331,38 +343,6 @@
     "title": "Default Location for Non-GPS Images",
     "setLocationButton": "Set Location"
   },
-  "homeLocationInfo": {
-    "title": "Default Location for Non-GPS Images",
-    "loading": "Loading location information...",
-    "hasLocation": {
-      "description": "Images without GPS data will use your default workplace location:",
-      "currentLocationLabel": "Current Default Location",
-      "useForUploadButton": "Use for This Upload",
-      "coordinatesLabel": "Coordinates: {lat}, {lng}",
-      "learnMoreButton": "Learn more about default locations"
-    },
-    "noLocation": {
-      "title": "No default location set!",
-      "description": "Images without GPS data won't have location information. Set a default workplace location below to ensure proper analysis.",
-      "tipTitle": "Tip:",
-      "tipDescription": "Set your primary workplace or field location as default. This will be used for images that don't contain GPS data."
-    },
-    "alerts": {
-      "defaultApplied": {
-        "title": "Default location applied!",
-        "description": "Your existing home location will be used for images without GPS data in this upload."
-      },
-      "howItWorks": {
-        "title": "How Default Location Works",
-        "points": [
-          "Images with GPS data will use their original location",
-          "Images without GPS data will be tagged with your default location",
-          "You can update your default location anytime using the map below",
-          "This ensures all images have location data for analysis"
-        ]
-      }
-    }
-  },
   "profile": {
     "logout": "Logout",
     "confirmLogout": "Confirm Logout",
@@ -376,5 +356,37 @@
     "name": "Name",
     "accountActive": "Account Active",
     "loggedInAs": "Logged in as"
+  },
+  "homeLocationInfo": {
+    "title": "Default Location for Images without GPS",
+    "loading": "Loading location...",
+    "hasLocation": {
+      "description": "Images without GPS data will use your default workplace location:",
+      "currentLocationLabel": "Current Location",
+      "useForUploadButton": "Use for Upload",
+      "coordinatesLabel": "Coordinates: {lat}, {lng}",
+      "learnMoreButton": "Learn more about default locations"
+    },
+    "noLocation": {
+      "title": "No Default Location Set!",
+      "description": "Set a default location to use for images without GPS data.",
+      "tipTitle": "Tip:",
+      "tipDescription": "Use the map below to set your farm location."
+    },
+    "alerts": {
+      "defaultApplied": {
+        "title": "Default Location Applied!",
+        "description": "Your existing home location will be used for any images in this upload that lack GPS data."
+      },
+      "howItWorks": {
+        "title": "How the Default Location Works",
+        "points": [
+          "Images that have GPS data will use their original location.",
+          "Images without GPS data will be tagged with your default location.",
+          "You can update your default location at any time using the map below.",
+          "This ensures all images have location data for analysis."
+        ]
+      }
+    }
   }
 }

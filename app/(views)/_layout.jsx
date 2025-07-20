@@ -57,11 +57,27 @@ const TabsLayout = () => {
 
   useEffect(() => {
     // Only redirect if we're not loading and user is not authenticated
-    if (!isLoading && !isAuthenticated) {
+    if (!isLoading && !isAuthenticated && router) {
       console.log("User is not authenticated, redirecting to login...");
-      router.replace("/(auth)/login"); // Use replace instead of push
+
+      // Add a small delay to ensure navigation context is ready
+      const timeoutId = setTimeout(() => {
+        try {
+          router.replace("/(auth)/login");
+        } catch (error) {
+          console.error("Navigation error:", error);
+          // Fallback: try push instead of replace
+          try {
+            router.push("/(auth)/login");
+          } catch (pushError) {
+            console.error("Push navigation also failed:", pushError);
+          }
+        }
+      }, 100);
+
+      return () => clearTimeout(timeoutId);
     }
-  }, [isAuthenticated, isLoading, router]); // Add dependencies
+  }, [isAuthenticated, isLoading, router]);
 
   // Show loading or nothing while checking authentication
   if (isLoading) {

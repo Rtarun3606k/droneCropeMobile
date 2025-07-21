@@ -9,7 +9,9 @@ node_modules/
 dist/
 web-build/
 expo-env.d.ts
-
+secret
+app.json
+eas.json
 # Native
 .kotlin/
 *.orig.*

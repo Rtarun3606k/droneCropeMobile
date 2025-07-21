@@ -1,4 +1,3 @@
-import { Link } from "expo-router";
 import {
   Dimensions,
   ScrollView,
@@ -168,35 +167,7 @@ const Index = () => {
         </View>
 
         {/* Action Buttons */}
-        <View className="px-6 py-8 space-y-4">
-          {/* Login Button */}
-          <Link href={'/(auth)/login' as any} asChild>
-            <TouchableOpacity
-              className="bg-green-600 dark:bg-green-500 rounded-2xl p-4 shadow-lg"
-              activeOpacity={0.8}
-            >
-              <View className="flex-row items-center justify-center">
-                <Text className="text-white text-lg font-semibold mr-2">
-                  {t("common.login")}
-                </Text>
-                <Text className="text-white text-xl">🔐</Text>
-              </View>
-            </TouchableOpacity>
-          </Link>
-
-          {/* Dashboard Button */}
-          <TouchableOpacity
-            className="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-md border-2 border-green-200 dark:border-green-700"
-            activeOpacity={0.8}
-          >
-            <View className="flex-row items-center justify-center">
-              <Text className="text-green-600 dark:text-green-400 text-lg font-semibold mr-2">
-                {t("common.dashboard")}
-              </Text>
-              <Text className="text-green-600 dark:text-green-400 text-xl">📊</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
+    
 
         {/* Footer */}
         <View className="bg-gray-900 dark:bg-black px-6 py-8">

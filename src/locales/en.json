@@ -78,29 +78,6 @@
       }
     ]
   },
-  "common": {
-    "brand": "DroneCrop",
-    "home": "Home",
-    "services": "Services",
-    "about": "About",
-    "contact": "Contact",
-    "login": "Log in",
-    "signup": "Sign up",
-    "signout": "Sign out",
-    "profile": "Your Profile",
-    "dashboard": "Dashboard",
-    "upload": "Upload",
-    "pick_images": "Pick Images",
-    "openMenu": "Open menu",
-    "closeMenu": "Close menu",
-    "rights": "All rights reserved.",
-    "selectLanguage": "Select Language",
-    "language": "Language",
-    "error": "Error",
-    "success": "Success",
-    "ok": "OK",
-    "cancel": "Cancel"
-  },
   "messages": {
     "welcome": "Welcome to Drone Crop Mobile",
     "loginSuccess": "Login successful",
@@ -343,20 +320,6 @@
     "title": "Default Location for Non-GPS Images",
     "setLocationButton": "Set Location"
   },
-  "profile": {
-    "logout": "Logout",
-    "confirmLogout": "Confirm Logout",
-    "confirmLogoutMessage": "Are you sure you want to logout?",
-    "logoutSuccess": "Success",
-    "logoutMessage": "You have been logged out successfully",
-    "logoutError": "Error",
-    "logoutErrorMessage": "Failed to logout. Please try again.",
-    "userId": "User ID",
-    "email": "Email",
-    "name": "Name",
-    "accountActive": "Account Active",
-    "loggedInAs": "Logged in as"
-  },
   "homeLocationInfo": {
     "title": "Default Location for Images without GPS",
     "loading": "Loading location...",
@@ -388,5 +351,127 @@
         ]
       }
     }
+  },
+  "batchDetailPage": {
+    "title": "Batch Details",
+    "loading": "Loading...",
+    "tryAgain": "Try Again",
+    "batchNotFound": "Batch not found.",
+    "error": {
+      "failedToFetch": "Failed to fetch batch details",
+      "couldNotPlayAudio": "Could not play audio file."
+    },
+    "pdfButton": "PDF",
+    "analysisTitle": "Analysis",
+    "summaryLabel": "Summary",
+    "briefLabel": "Brief",
+    "generatingAnalysis": "Analysis description is being generated...",
+    "audioAnalysisTitle": "Audio Analysis",
+    "generatingAudio": "Audio analysis is being generated...",
+    "playAudioButton": "Play Audio Analysis",
+    "batchInfo": {
+      "batchId": "Batch ID",
+      "imageCount": "Image Count",
+      "language": "Language",
+      "createdAt": "Created At"
+    },
+    "status": {
+      "loading": "Loading...",
+      "failed": "Failed",
+      "completed": "Completed",
+      "processing": "Processing",
+      "pending": "Pending"
+    },
+    "pdfAlert": {
+      "title": "PDF Generation",
+      "message": "PDF generation logic needs to be implemented here."
+    }
+  },
+  "batchesPage": {
+    "title": "Your Batches",
+    "searchPlaceholder": "Search by batch name...",
+    "error": {
+      "failedToLoad": "Failed to load batches. Pull down to try again."
+    },
+    "emptyState": {
+      "noMatches": "No batches match your criteria.",
+      "noBatches": "You haven't uploaded any batches yet.",
+      "uploadFirstBatchButton": "Upload First Batch"
+    },
+    "filters": {
+      "cropPlaceholder": "Filter by crop",
+      "sortPlaceholder": "Sort by date",
+      "allCrops": "All Crops"
+    },
+    "sortOptions": {
+      "newest": "Newest First",
+      "oldest": "Oldest First"
+    },
+    "batchCard": {
+      "imagesLabel": "Images",
+      "languageLabel": "Lang:"
+    },
+    "status": {
+      "failed": "Failed",
+      "completed": "Completed",
+      "processing": "Processing",
+      "pending": "Pending"
+    }
+  },
+  "profile": {
+    "title": "Profile",
+    "accountActive": "Account Active",
+    "loggedInAs": "Logged in as",
+    "userId": "User ID",
+    "email": "Email",
+    "name": "Name",
+    "defaultLocation": "Default Location",
+    "coordinates": "📍 Coordinates",
+    "address": "🏠 Address",
+    "setAt": "📅 Set At",
+    "updatedAt": "🔄 Updated",
+    "logout": "Logout",
+    "logoutSuccess": "Success",
+    "logoutMessage": "You have been logged out successfully",
+    "logoutError": "Error",
+    "logoutErrorMessage": "Failed to logout. Please try again.",
+    "confirmLogout": "Confirm Logout",
+    "confirmLogoutMessage": "Are you sure you want to logout?"
+  },
+  "common": {
+    "cancel": "Cancel",
+    "ok": "OK",
+    "retry": "Retry",
+    "great": "Great!",
+    "brand": "DroneCrop",
+    "home": "Home",
+    "services": "Services",
+    "about": "About",
+    "contact": "Contact",
+    "login": "Log in",
+    "signup": "Sign up",
+    "signout": "Sign out",
+    "profile": "Your Profile",
+    "dashboard": "Dashboard",
+    "upload": "Upload",
+    "pick_images": "Pick Images",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "rights": "All rights reserved.",
+    "selectLanguage": "Select Language",
+    "language": "Language",
+    "error": "Error",
+    "success": "Success"
+  },
+  "loading": {
+    "userData": "Loading user data..."
+  },
+  "alerts": {
+    "authRequiredTitle": "Authentication Required",
+    "authRequiredMessage": "Please login to access your profile data.",
+    "successTitle": "Success",
+    "dataLoadedSuccess": "User data loaded successfully!",
+    "errorTitle": "Error",
+    "fetchError": "Failed to fetch user data. Please try again."
   }
 }

@@ -101,7 +101,7 @@ const Login = () => {
       { text: t("common.cancel"), style: "cancel" },
       {
         text: t("login.openWebsite"),
-        onPress: () => Linking.openURL("https://dronecrop.com/profile"),
+        onPress: () => Linking.openURL("http://192.168.1.5:3000"),
       },
     ]);
   };

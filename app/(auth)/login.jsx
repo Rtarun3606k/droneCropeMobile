@@ -219,22 +219,24 @@ const Login = () => {
                 <Text className="text-blue-600 dark:text-blue-400 text-xl mr-3">
                   ℹ️
                 </Text>
-                <View className="flex-1">
+                <View className="flex-1 w-full">
                   <Text className="text-sm font-semibold text-blue-800 dark:text-blue-300 mb-2">
-                    {t("login.emailInfoTitle")}
+                    {t("login.userIdInfoTitle")}
                   </Text>
                   <Text className="text-sm text-blue-700 dark:text-blue-400 mb-3">
-                    {t("login.emailInfoMessage")}
+                    {t("login.userIdInfoMessage")}
                   </Text>
-                  <TouchableOpacity
-                    className="bg-blue-600 dark:bg-blue-500 px-4 py-2 rounded-lg self-start"
-                    onPress={openDroneCropWebsite}
-                    activeOpacity={0.8}
-                  >
-                    <Text className="text-white text-sm font-medium">
-                      {t("login.visitWebsite")}
-                    </Text>
-                  </TouchableOpacity>
+                  <View className=" flex justify-center items-center w-full ">
+                    <TouchableOpacity
+                      className="bg-blue-600 dark:bg-blue-500 px-4 py-2 rounded-lg self-start flex justify-center items-center text-center"
+                      onPress={openDroneCropWebsite}
+                      activeOpacity={0.8}
+                    >
+                      <Text className="text-white text-sm font-medium">
+                        {t("login.visitWebsite")}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
             </View>

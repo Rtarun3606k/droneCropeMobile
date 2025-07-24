@@ -31,7 +31,7 @@ const FirstScreen = () => {
   const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollY = useRef(new Animated.Value(0)).current;
-  const { currentLanguage } = useTranslation();
+  const { currentLanguage, t } = useTranslation();
 
   const handleNext = () => {
     router.replace("CarouselScreen");
@@ -116,7 +116,7 @@ const FirstScreen = () => {
         className="mt-10 bg-green-500 py-4 px-10 rounded-full self-center active:bg-green-600"
         onPress={handleNext}
       >
-        <Text className="text-white text-lg font-bold">Next</Text>
+        <Text className="text-white text-lg font-bold">{t("common.next")}</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

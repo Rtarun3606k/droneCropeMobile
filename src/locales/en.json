@@ -439,6 +439,9 @@
     "confirmLogoutMessage": "Are you sure you want to logout?"
   },
   "common": {
+    "getStarted": "Get Started",
+    "next": "Next",
+    "previous": "Previous",
     "cancel": "Cancel",
     "ok": "OK",
     "retry": "Retry",
@@ -473,5 +476,15 @@
     "dataLoadedSuccess": "User data loaded successfully!",
     "errorTitle": "Error",
     "fetchError": "Failed to fetch user data. Please try again."
-  }
+  },
+  "slides": [
+    {
+      "title": "Analyze Your Fields",
+      "description": "Send a geotagged image of your land. Our AI will analyze it and generate a detailed summary to help you understand your field better."
+    },
+    {
+      "title": "Smart Insights Dashboard",
+      "description": "Access a curated dashboard with actionable suggestions and tips to improve your crop health. Designed for accessibility and ease of use."
+    }
+  ]
 }
